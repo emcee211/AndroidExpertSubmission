@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_favorite_list"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/menu_fave"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/sort_name"
+        android:title="@string/sortname"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_rating"
+        android:title="@string/sortrating"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_popular"
+        android:title="@string/sortpopular"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_random"
+        android:title="@string/sortrandom"
+        app:showAsAction="never" />
+
+</menu>
