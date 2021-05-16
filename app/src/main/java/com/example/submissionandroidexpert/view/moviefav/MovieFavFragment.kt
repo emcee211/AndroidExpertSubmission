@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -22,7 +21,7 @@ class MovieFavFragment : Fragment() {
     private lateinit var rvMovie: RecyclerView
     private lateinit var movieListAdapter: ItemMovieListAdapter
 
-    private lateinit var movies: PagedList<MovieEntity>
+    private lateinit var movies: List<MovieEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +47,8 @@ class MovieFavFragment : Fragment() {
         getData()
     }
 
-    private fun showRV(movies: PagedList<MovieEntity>) {
-        movieListAdapter.submitList(movies)
+    private fun showRV(movies: List<MovieEntity>) {
+        movieListAdapter.setList(movies)
 
         binding.progressBar.visibility = View.INVISIBLE
         binding.rvMovielist.visibility = View.VISIBLE

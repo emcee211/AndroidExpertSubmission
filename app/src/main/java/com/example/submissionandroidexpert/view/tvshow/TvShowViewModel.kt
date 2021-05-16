@@ -9,7 +9,7 @@ import com.example.submissionandroidexpert.utils.SortBy
 import com.example.submissionandroidexpert.vo.Resource
 
 class TvShowViewModel(private val repository: MovieListRepository) : ViewModel() {
-    fun getPopularTvShows(sortParam: String): LiveData<Resource<PagedList<TvShowEntity>>> =
+    fun getPopularTvShows(sortParam: String): LiveData<Resource<List<TvShowEntity>>> =
         when (sortParam) {
             SortBy.NONE -> repository.getPopularTvShows()
             SortBy.RANDOM -> repository.getPopularTvShowsSortRandom()

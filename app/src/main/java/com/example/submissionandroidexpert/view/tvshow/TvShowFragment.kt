@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -25,7 +24,7 @@ class TvShowFragment(private val sortBy: LiveData<String>) : Fragment() {
     private lateinit var rvTvShow: RecyclerView
     private lateinit var tvlistListAdapter: ItemTvShowListAdapter
 
-    private lateinit var tvshows: PagedList<TvShowEntity>
+    private lateinit var tvshows: List<TvShowEntity>
 
     private var sortParam = SortBy.NONE
 
@@ -58,8 +57,8 @@ class TvShowFragment(private val sortBy: LiveData<String>) : Fragment() {
         getData()
     }
 
-    private fun showRV(tvs: PagedList<TvShowEntity>) {
-        tvlistListAdapter.submitList(tvs)
+    private fun showRV(tvs: List<TvShowEntity>) {
+        tvlistListAdapter.setList(tvs)
 
         binding.progressBar.visibility = View.INVISIBLE
         binding.rvTvslist.visibility = View.VISIBLE

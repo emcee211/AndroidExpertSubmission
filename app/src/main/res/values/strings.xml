@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie List</string>
+    <string name="app_name">Movie Database</string>
 
     <string name="loading_screen">Loading Screen</string>
     <string name="movie_list">Movie List</string>

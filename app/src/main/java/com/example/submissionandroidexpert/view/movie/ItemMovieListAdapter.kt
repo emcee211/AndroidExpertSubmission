@@ -3,8 +3,6 @@ package com.example.submissionandroidexpert.view.movie
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -14,33 +12,39 @@ import com.example.submissionandroidexpert.databinding.ItemMovieListBinding
 import com.example.submissionandroidexpert.utils.Constant
 import com.example.submissionandroidexpert.view.detailmovie.DetailMovieActivity
 
-class ItemMovieListAdapter :
-    PagedListAdapter<MovieEntity, ItemMovieListAdapter.ItemMovieListViewHolder>(DIFF_CALLBACK) {
+class ItemMovieListAdapter : RecyclerView.Adapter<ItemMovieListAdapter.ItemMovieListViewHolder>() {
+
+    private lateinit var list: List<MovieEntity>
+
+    fun setList(list: List<MovieEntity>) {
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemMovieListViewHolder {
         val binding =
-            ItemMovieListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemMovieListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemMovieListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemMovieListViewHolder, position: Int) {
-        val movie = getItem(position)
+        val movie = list[position]
         if (movie != null) {
             holder.bind(movie)
         }
     }
 
     class ItemMovieListViewHolder(private val binding: ItemMovieListBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+            RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(Constant.BASE_IMAGE_URL + movie.posterPath)
-                    .apply(
-                        RequestOptions.placeholderOf(R.drawable.ic_loading_24)
-                            .error(R.drawable.ic_error_24)
-                    )
-                    .into(imgItemPhoto)
+                        .load(Constant.BASE_IMAGE_URL + movie.posterPath)
+                        .apply(
+                                RequestOptions.placeholderOf(R.drawable.ic_loading_24)
+                                        .error(R.drawable.ic_error_24)
+                        )
+                        .into(imgItemPhoto)
                 tvItemTitle.text = movie.title
                 tvItemRating.text = movie.rating.toString()
                 rbItemRating.rating = movie.rating.toFloat() / 2
@@ -53,16 +57,10 @@ class ItemMovieListAdapter :
         }
     }
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
-            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                return oldItem.movieId == newItem.movieId
-            }
-
-            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                return oldItem == newItem
-            }
-        }
+    override fun getItemCount(): Int {
+        return if (this::list.isInitialized) {
+            list.size
+        } else 0
     }
 
 }

@@ -17,18 +17,18 @@ class LocalDataSource private constructor(private val mMovieListDao: MovieListDa
 
     //tvshow
 
-    fun getAllTvShows(): DataSource.Factory<Int, TvShowEntity> = mMovieListDao.getTvShows()
+    fun getAllTvShows(): LiveData<List<TvShowEntity>> = mMovieListDao.getTvShows()
 
-    fun getAllTvShowsSortName(): DataSource.Factory<Int, TvShowEntity> =
+    fun getAllTvShowsSortName(): LiveData<List<TvShowEntity>> =
         mMovieListDao.getTvShowsSortName()
 
-    fun getAllTvShowsSortRating(): DataSource.Factory<Int, TvShowEntity> =
+    fun getAllTvShowsSortRating(): LiveData<List<TvShowEntity>> =
         mMovieListDao.getTvShowsSortRating()
 
-    fun getAllTvShowsSortRandom(): DataSource.Factory<Int, TvShowEntity> =
+    fun getAllTvShowsSortRandom(): LiveData<List<TvShowEntity>> =
         mMovieListDao.getTvShowsSortRandom()
 
-    fun getFavoriteTvShows(): DataSource.Factory<Int, TvShowEntity> =
+    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> =
         mMovieListDao.getFavoritTvShows()
 
     fun getTvShowById(id: Int): LiveData<TvShowEntity> = mMovieListDao.getTvShowByTvId(id)
@@ -39,18 +39,18 @@ class LocalDataSource private constructor(private val mMovieListDao: MovieListDa
 
     //movie
 
-    fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mMovieListDao.getMovies()
+    fun getAllMovies(): LiveData<List<MovieEntity>> = mMovieListDao.getMovies()
 
-    fun getAllMoviesSortName(): DataSource.Factory<Int, MovieEntity> =
+    fun getAllMoviesSortName(): LiveData<List<MovieEntity>> =
         mMovieListDao.getMoviesSortName()
 
-    fun getAllMoviesSortRating(): DataSource.Factory<Int, MovieEntity> =
+    fun getAllMoviesSortRating(): LiveData<List<MovieEntity>> =
         mMovieListDao.getMoviesSortRating()
 
-    fun getAllMoviesSortRandom(): DataSource.Factory<Int, MovieEntity> =
+    fun getAllMoviesSortRandom(): LiveData<List<MovieEntity>> =
         mMovieListDao.getMoviesSortRandom()
 
-    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> = mMovieListDao.getFavoritMovies()
+    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = mMovieListDao.getFavoritMovies()
 
     fun getMovieById(id: Int): LiveData<MovieEntity> = mMovieListDao.getMovieByTvId(id)
 

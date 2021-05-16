@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -22,7 +21,7 @@ class TvShowFavFragment : Fragment() {
     private lateinit var rvTvShow: RecyclerView
     private lateinit var tvlistListAdapter: ItemTvShowListAdapter
 
-    private lateinit var tvshows: PagedList<TvShowEntity>
+    private lateinit var tvshows: List<TvShowEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +47,8 @@ class TvShowFavFragment : Fragment() {
         getData()
     }
 
-    private fun showRV(tvs: PagedList<TvShowEntity>) {
-        tvlistListAdapter.submitList(tvs)
+    private fun showRV(tvs: List<TvShowEntity>) {
+        tvlistListAdapter.setList(tvs)
 
         binding.progressBar.visibility = View.INVISIBLE
         binding.rvTvslist.visibility = View.VISIBLE

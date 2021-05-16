@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -24,7 +23,7 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
     private lateinit var rvMovie: RecyclerView
     private lateinit var movieListAdapter: ItemMovieListAdapter
 
-    private lateinit var movies: PagedList<MovieEntity>
+    private lateinit var movies: List<MovieEntity>
 
     private var sortParam = SortBy.NONE
 
@@ -58,12 +57,8 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
         getData()
     }
 
-//    private fun sortByPopularity(movies : PagedList<MovieEntity>) : PagedList<MovieEntity>{
-//            return  movies.dataSource.
-//    }
-
-    private fun showRV(movies: PagedList<MovieEntity>) {
-        movieListAdapter.submitList(movies)
+    private fun showRV(movies: List<MovieEntity>) {
+        movieListAdapter.setList(movies)
 
         binding.progressBar.visibility = View.INVISIBLE
         binding.rvMovielist.visibility = View.VISIBLE

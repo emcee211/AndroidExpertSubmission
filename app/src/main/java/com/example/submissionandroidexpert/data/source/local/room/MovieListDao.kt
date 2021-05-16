@@ -10,19 +10,19 @@ import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 interface MovieListDao {
     //tvshow
     @Query("SELECT * FROM tvshowentities")
-    fun getTvShows(): DataSource.Factory<Int, TvShowEntity>
+    fun getTvShows(): LiveData<List<TvShowEntity>>
 
     @Query("SELECT * FROM tvshowentities ORDER BY title ASC")
-    fun getTvShowsSortName(): DataSource.Factory<Int, TvShowEntity>
+    fun getTvShowsSortName(): LiveData<List<TvShowEntity>>
 
     @Query("SELECT * FROM tvshowentities ORDER BY rating DESC")
-    fun getTvShowsSortRating(): DataSource.Factory<Int, TvShowEntity>
+    fun getTvShowsSortRating(): LiveData<List<TvShowEntity>>
 
     @Query("SELECT * FROM tvshowentities ORDER BY RANDOM()")
-    fun getTvShowsSortRandom(): DataSource.Factory<Int, TvShowEntity>
+    fun getTvShowsSortRandom(): LiveData<List<TvShowEntity>>
 
     @Query("SELECT * FROM tvshowentities where favorite = 1")
-    fun getFavoritTvShows(): DataSource.Factory<Int, TvShowEntity>
+    fun getFavoritTvShows(): LiveData<List<TvShowEntity>>
 
     @Transaction
     @Query("SELECT * FROM tvshowentities WHERE tvShowId = :tvId")
@@ -36,19 +36,19 @@ interface MovieListDao {
 
     //movies
     @Query("SELECT * FROM movieentities")
-    fun getMovies(): DataSource.Factory<Int, MovieEntity>
+    fun getMovies(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities ORDER BY title ASC")
-    fun getMoviesSortName(): DataSource.Factory<Int, MovieEntity>
+    fun getMoviesSortName(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities ORDER BY rating DESC")
-    fun getMoviesSortRating(): DataSource.Factory<Int, MovieEntity>
+    fun getMoviesSortRating(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities ORDER BY RANDOM()")
-    fun getMoviesSortRandom(): DataSource.Factory<Int, MovieEntity>
+    fun getMoviesSortRandom(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities where favorite = 1")
-    fun getFavoritMovies(): DataSource.Factory<Int, MovieEntity>
+    fun getFavoritMovies(): LiveData<List<MovieEntity>>
 
     @Transaction
     @Query("SELECT * FROM movieentities WHERE movieId = :movieId")
