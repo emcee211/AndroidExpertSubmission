@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
 import com.example.submissionandroidexpert.databinding.FragmentMovieBinding
+import com.example.submissionandroidexpert.domain.model.Movie
 import com.example.submissionandroidexpert.utils.SortBy
 import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
 import com.example.submissionandroidexpert.vo.Status
@@ -23,7 +23,7 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
     private lateinit var rvMovie: RecyclerView
     private lateinit var movieListAdapter: ItemMovieListAdapter
 
-    private lateinit var movies: List<MovieEntity>
+    private lateinit var movies: List<Movie>
 
     private var sortParam = SortBy.NONE
 
@@ -57,7 +57,7 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
         getData()
     }
 
-    private fun showRV(movies: List<MovieEntity>) {
+    private fun showRV(movies: List<Movie>) {
         movieListAdapter.setList(movies)
 
         binding.progressBar.visibility = View.INVISIBLE

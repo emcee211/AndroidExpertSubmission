@@ -6,7 +6,7 @@
         android:id="@+id/action_favorite_list"
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/menu_fave"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/sort_name"

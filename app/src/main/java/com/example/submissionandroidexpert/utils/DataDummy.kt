@@ -123,7 +123,6 @@ object DataDummy {
         return MovieDetailResponse(
             "en",
             "tt0293429",
-            false,
             "Mortal Kombat",
             "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
             50115000,
@@ -142,6 +141,37 @@ object DataDummy {
             false,
             "https://www.mortalkombatmovie.net",
             "Released",
+        )
+    }
+
+    fun emptyDetailMovie(): MovieDetailResponse {
+        val listGenre: List<GenresItemResponse> = listOf<GenresItemResponse>(
+            GenresItemResponse(
+                "",
+                0
+            )
+        )
+        return MovieDetailResponse(
+            "",
+            "",
+            "",
+            "",
+            0,
+            listGenre,
+            0.0,
+            0,
+            0,
+            0,
+            "",
+            "",
+            0,
+            "",
+            "",
+            0.0,
+            "",
+            false,
+            "",
+            "",
         )
     }
 
@@ -253,6 +283,41 @@ object DataDummy {
         )
 
         return tvshows
+    }
+
+    fun emptyDetailTvShow(): TvShowDetailResponse {
+        val genres = listOf<GenresItemResponse>(
+            GenresItemResponse(
+                "",
+                0
+            )
+        )
+        return TvShowDetailResponse(
+            "",
+            0,
+            "",
+            "",
+            genres,
+            0.0,
+            0,
+            0,
+            0,
+            "",
+            "",
+            listOf<String>(
+                ""
+            ),
+            "",
+            listOf<String>(""),
+            "",
+            0.0,
+            "",
+            "",
+            listOf<Int>(0),
+            "",
+            "",
+            ""
+        )
     }
 
     fun generateOneDetailTvShow(): TvShowDetailResponse {

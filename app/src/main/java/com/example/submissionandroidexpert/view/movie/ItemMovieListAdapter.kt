@@ -7,16 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
 import com.example.submissionandroidexpert.databinding.ItemMovieListBinding
+import com.example.submissionandroidexpert.domain.model.Movie
 import com.example.submissionandroidexpert.utils.Constant
 import com.example.submissionandroidexpert.view.detailmovie.DetailMovieActivity
 
 class ItemMovieListAdapter : RecyclerView.Adapter<ItemMovieListAdapter.ItemMovieListViewHolder>() {
 
-    private lateinit var list: List<MovieEntity>
+    private lateinit var list: List<Movie>
 
-    fun setList(list: List<MovieEntity>) {
+    fun setList(list: List<Movie>) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -29,14 +29,12 @@ class ItemMovieListAdapter : RecyclerView.Adapter<ItemMovieListAdapter.ItemMovie
 
     override fun onBindViewHolder(holder: ItemMovieListViewHolder, position: Int) {
         val movie = list[position]
-        if (movie != null) {
-            holder.bind(movie)
-        }
+        holder.bind(movie)
     }
 
     class ItemMovieListViewHolder(private val binding: ItemMovieListBinding) :
             RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieEntity) {
+        fun bind(movie: Movie) {
             with(binding) {
                 Glide.with(itemView.context)
                         .load(Constant.BASE_IMAGE_URL + movie.posterPath)

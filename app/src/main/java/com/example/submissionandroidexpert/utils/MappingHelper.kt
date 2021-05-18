@@ -5,7 +5,9 @@ import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
 import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 import com.example.submissionandroidexpert.data.source.remote.response.GenresItemResponse
 import com.example.submissionandroidexpert.data.source.remote.response.movie.MovieDetailResponse
+import com.example.submissionandroidexpert.data.source.remote.response.movie.MovieResponse
 import com.example.submissionandroidexpert.data.source.remote.response.tvshow.TvShowDetailResponse
+import com.example.submissionandroidexpert.data.source.remote.response.tvshow.TvShowResponse
 import com.example.submissionandroidexpert.domain.model.Movie
 import com.example.submissionandroidexpert.domain.model.TvShow
 
@@ -45,8 +47,24 @@ object MappingHelper {
         )
     }
 
-    fun mapMovieDetailResponsesToMovieEntitiesDb(response: MovieDetailResponse): com.example.submissionandroidexpert.data.source.local.entity.MovieEntity {
-        return com.example.submissionandroidexpert.data.source.local.entity.MovieEntity(
+    fun mapTvShowResponsesToTvShowsEntities(input: ArrayList<TvShowResponse>): List<TvShowEntity> =
+            input.map {
+                TvShowEntity(
+                        tvShowId = it.id,
+                        title = it.name,
+                        posterPath = it.posterPath,
+                        rating = it.voteAverage,
+                        status = "",
+                        numberOfSeason = 0,
+                        genre = "",
+                        releaseDate = it.firstAirDate,
+                        plotSummary = it.overview,
+                        favorite = false
+                )
+            }
+
+    fun mapMovieDetailResponsesToMovieEntitiesDb(response: MovieDetailResponse): MovieEntity {
+        return MovieEntity(
                 response.id,
                 response.title,
                 response.posterPath,
@@ -58,6 +76,21 @@ object MappingHelper {
                 false
         )
     }
+
+    fun mapMovieResponsesToMovieEntities(input: ArrayList<MovieResponse>): List<MovieEntity> =
+            input.map {
+                MovieEntity(
+                        movieId = it.id,
+                        title = it.title,
+                        posterPath = it.posterPath,
+                        rating = it.voteAverage,
+                        duration = 0,
+                        genre = "",
+                        releaseDate = it.releaseDate,
+                        plotSummary = it.overview,
+                        favorite = false
+                )
+            }
 
     fun mapMovieEntitiesToMovieDomain(input: List<MovieEntity>): List<Movie> =
             input.map {
@@ -74,6 +107,19 @@ object MappingHelper {
                 )
             }
 
+    fun mapOneMovieEntitiesToOneMovieDomain(it: MovieEntity): Movie =
+            Movie(
+                    movieId = it.movieId,
+                    title = it.title,
+                    posterPath = it.posterPath,
+                    rating = it.rating,
+                    duration = it.duration,
+                    genre = it.genre,
+                    releaseDate = it.releaseDate,
+                    plotSummary = it.plotSummary,
+                    favorite = it.favorite
+            )
+
     fun mapMovieDomainToMovieEntities(input: Movie) =
             MovieEntity(
                     movieId = input.movieId,
@@ -88,9 +134,9 @@ object MappingHelper {
             )
 
 
-    fun mapTvShowEntitiesToTvShowDomain(input: List<TvShowEntity>): List<TvShowEntity> =
+    fun mapTvShowEntitiesToTvShowDomain(input: List<TvShowEntity>): List<TvShow> =
             input.map {
-                TvShowEntity(
+                TvShow(
                         tvShowId = it.tvShowId,
                         title = it.title,
                         posterPath = it.posterPath,
@@ -103,6 +149,20 @@ object MappingHelper {
                         favorite = it.favorite
                 )
             }
+
+    fun mapOneTvShowEntitieToOneTvShowDomain(input: TvShowEntity): TvShow =
+            TvShow(
+                    tvShowId = input.tvShowId,
+                    title = input.title,
+                    posterPath = input.posterPath,
+                    rating = input.rating,
+                    status = input.status,
+                    numberOfSeason = input.numberOfSeason,
+                    genre = input.genre,
+                    releaseDate = input.releaseDate,
+                    plotSummary = input.plotSummary,
+                    favorite = input.favorite
+            )
 
     fun mapTvShowDomainToTvShowEntities(input: TvShow): TvShowEntity =
             TvShowEntity(

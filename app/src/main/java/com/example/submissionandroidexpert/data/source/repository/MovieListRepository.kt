@@ -1,405 +1,299 @@
 package com.example.submissionandroidexpert.data.source.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import com.example.submissionandroidexpert.data.NetworkBoundResource
 import com.example.submissionandroidexpert.data.source.local.LocalDataSource
-import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
-import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 import com.example.submissionandroidexpert.data.source.remote.ApiResponse
 import com.example.submissionandroidexpert.data.source.remote.RemoteDataSource
 import com.example.submissionandroidexpert.data.source.remote.response.movie.MovieDetailResponse
 import com.example.submissionandroidexpert.data.source.remote.response.movie.MovieResponse
 import com.example.submissionandroidexpert.data.source.remote.response.tvshow.TvShowDetailResponse
 import com.example.submissionandroidexpert.data.source.remote.response.tvshow.TvShowResponse
+import com.example.submissionandroidexpert.domain.model.Movie
+import com.example.submissionandroidexpert.domain.model.TvShow
+import com.example.submissionandroidexpert.domain.repository.IMovieListRepository
 import com.example.submissionandroidexpert.utils.*
 import com.example.submissionandroidexpert.vo.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class MovieListRepository(
         private val remoteDataSource: RemoteDataSource,
         private val localDataSource: LocalDataSource,
         private val appExecutors: AppExecutors
-) : MovieListDataSource {
+) : IMovieListRepository {
     val TAG = "DEBUGMOVIEREPOSITORY"
-    override fun getPopularMovies(): LiveData<Resource<List<MovieEntity>>> {
+    override fun getPopularMovies(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<MovieEntity>, ArrayList<MovieResponse>>(
+                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<MovieEntity>> {
-                return localDataSource.getAllMovies()
+            override fun loadFromDB(): Flow<List<Movie>> {
+                return localDataSource.getAllMovies().map { MappingHelper.mapMovieEntitiesToMovieDomain(it) }
             }
 
-            override fun shouldFetch(data: List<MovieEntity>?): Boolean {
+            override fun shouldFetch(data: List<Movie>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<MovieResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<MovieResponse>>> {
                 return remoteDataSource.getPopularMovies()
             }
 
-            override fun saveCallResult(data: ArrayList<MovieResponse>) {
-                val movieList =
-                        ArrayList<MovieEntity>()
-                for (response in data) {
-                    val movie = MovieEntity(
-                            response.id,
-                            response.title,
-                            response.posterPath,
-                            response.voteAverage,
-                            0,
-                            "",
-                            response.releaseDate,
-                            response.overview
-                    )
-                    movieList.add(movie)
-                }
-                localDataSource.insertMovie(movieList)
+            override suspend fun saveCallResult(data: ArrayList<MovieResponse>) {
+                localDataSource.insertMovie(MappingHelper.mapMovieResponsesToMovieEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getPopularMoviesSortName(): LiveData<Resource<List<MovieEntity>>> {
+    override fun getPopularMoviesSortName(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<MovieEntity>, ArrayList<MovieResponse>>(
+                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<MovieEntity>> {
-                return localDataSource.getAllMoviesSortName()
+            override fun loadFromDB(): Flow<List<Movie>> {
+                return localDataSource.getAllMoviesSortName().map {
+                    MappingHelper.mapMovieEntitiesToMovieDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<MovieEntity>?): Boolean {
+            override fun shouldFetch(data: List<Movie>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<MovieResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<MovieResponse>>> {
                 return remoteDataSource.getPopularMovies()
             }
 
-            override fun saveCallResult(data: ArrayList<MovieResponse>) {
-                val movieList =
-                        ArrayList<MovieEntity>()
-                for (response in data) {
-                    val movie = MovieEntity(
-                            response.id,
-                            response.title,
-                            response.posterPath,
-                            response.voteAverage,
-                            0,
-                            "",
-                            response.releaseDate,
-                            response.overview
-                    )
-                    movieList.add(movie)
-                }
-                localDataSource.insertMovie(movieList)
+            override suspend fun saveCallResult(data: ArrayList<MovieResponse>) {
+                localDataSource.insertMovie(MappingHelper.mapMovieResponsesToMovieEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getPopularMoviesSortRating(): LiveData<Resource<List<MovieEntity>>> {
+    override fun getPopularMoviesSortRating(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<MovieEntity>, ArrayList<MovieResponse>>(
+                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<MovieEntity>> {
-                return localDataSource.getAllMoviesSortRating()
+            override fun loadFromDB(): Flow<List<Movie>> {
+                return localDataSource.getAllMoviesSortRating().map {
+                    MappingHelper.mapMovieEntitiesToMovieDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<MovieEntity>?): Boolean {
+            override fun shouldFetch(data: List<Movie>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<MovieResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<MovieResponse>>> {
                 return remoteDataSource.getPopularMovies()
             }
 
-            override fun saveCallResult(data: ArrayList<MovieResponse>) {
-                val movieList =
-                        ArrayList<MovieEntity>()
-                for (response in data) {
-                    val movie = MovieEntity(
-                            response.id,
-                            response.title,
-                            response.posterPath,
-                            response.voteAverage,
-                            0,
-                            "",
-                            response.releaseDate,
-                            response.overview
-                    )
-                    movieList.add(movie)
-                }
-                localDataSource.insertMovie(movieList)
+            override suspend fun saveCallResult(data: ArrayList<MovieResponse>) {
+                localDataSource.insertMovie(MappingHelper.mapMovieResponsesToMovieEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getPopularMoviesSortRandom(): LiveData<Resource<List<MovieEntity>>> {
+    override fun getPopularMoviesSortRandom(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<MovieEntity>, ArrayList<MovieResponse>>(
+                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<MovieEntity>> {
-                return localDataSource.getAllMoviesSortRandom()
+            override fun loadFromDB(): Flow<List<Movie>> {
+                return localDataSource.getAllMoviesSortRandom().map {
+                    MappingHelper.mapMovieEntitiesToMovieDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<MovieEntity>?): Boolean {
+            override fun shouldFetch(data: List<Movie>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<MovieResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<MovieResponse>>> {
                 return remoteDataSource.getPopularMovies()
             }
 
-            override fun saveCallResult(data: ArrayList<MovieResponse>) {
-                val movieList =
-                        ArrayList<MovieEntity>()
-                for (response in data) {
-                    val movie = MovieEntity(
-                            response.id,
-                            response.title,
-                            response.posterPath,
-                            response.voteAverage,
-                            0,
-                            "",
-                            response.releaseDate,
-                            response.overview
-                    )
-                    movieList.add(movie)
-                }
-                localDataSource.insertMovie(movieList)
+            override suspend fun saveCallResult(data: ArrayList<MovieResponse>) {
+                localDataSource.insertMovie(MappingHelper.mapMovieResponsesToMovieEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>> {
-        return object : NetworkBoundResource<MovieEntity, MovieDetailResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<MovieEntity> {
-                return localDataSource.getMovieById(movieId)
+    override fun getDetailMovie(movieId: Int): Flow<Resource<Movie>> {
+        return object : NetworkBoundResource<Movie, MovieDetailResponse>(appExecutors) {
+            override fun loadFromDB(): Flow<Movie> {
+                return localDataSource.getMovieById(movieId).map {
+                    MappingHelper.mapOneMovieEntitiesToOneMovieDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: MovieEntity?): Boolean {
+            override fun shouldFetch(data: Movie?): Boolean {
                 return data == null || data.genre == ""
             }
 
-            override fun createCall(): LiveData<ApiResponse<MovieDetailResponse>> {
+            override suspend fun createCall(): Flow<ApiResponse<MovieDetailResponse>> {
                 return remoteDataSource.getDetailMovie(movieId)
             }
 
-            override fun saveCallResult(data: MovieDetailResponse) {
+            override suspend fun saveCallResult(data: MovieDetailResponse) {
                 localDataSource.updateMovie(
                         MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(
                                 data
                         )
                 )
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun updateMovie(movieEntity: MovieEntity) {
-        appExecutors.diskIO().execute { localDataSource.updateMovie(movieEntity) }
+    override fun updateMovie(movie: Movie) {
+        appExecutors.diskIO().execute { localDataSource.updateMovie(MappingHelper.mapMovieDomainToMovieEntities(movie)) }
     }
 
-    override fun getFavoriteMovies(): LiveData<List<MovieEntity>> {
-        return localDataSource.getFavoriteMovies()
+    override fun getFavoriteMovies(): Flow<List<Movie>> {
+        return localDataSource.getFavoriteMovies().map {
+            MappingHelper.mapMovieEntitiesToMovieDomain(it)
+        }
     }
 
-    override fun getPopularTvShowsSortName(): LiveData<Resource<List<TvShowEntity>>> {
+    override fun getPopularTvShowsSortName(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShowEntity>, ArrayList<TvShowResponse>>(
+                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<TvShowEntity>> {
-                return localDataSource.getAllTvShowsSortName()
+            override fun loadFromDB(): Flow<List<TvShow>> {
+                return localDataSource.getAllTvShowsSortName().map {
+                    MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<TvShowEntity>?): Boolean {
+            override fun shouldFetch(data: List<TvShow>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<TvShowResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
                 return remoteDataSource.getPopularTvShows()
             }
 
-            override fun saveCallResult(data: ArrayList<TvShowResponse>) {
-                val tvShowList =
-                        ArrayList<TvShowEntity>()
-                for (response in data) {
-                    val tvShow = TvShowEntity(
-                            response.id,
-                            response.originalName,
-                            response.posterPath,
-                            response.voteAverage,
-                            "",
-                            0,
-                            "",
-                            response.firstAirDate,
-                            response.overview
-                    )
-                    tvShowList.add(tvShow)
-                }
-                Log.d(TAG, "saveCallResult: ${tvShowList}")
-                localDataSource.insertTvShow(tvShowList)
+            override suspend fun saveCallResult(data: ArrayList<TvShowResponse>) {
+                localDataSource.insertTvShow(MappingHelper.mapTvShowResponsesToTvShowsEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getPopularTvShowsSortRating(): LiveData<Resource<List<TvShowEntity>>> {
+    override fun getPopularTvShowsSortRating(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShowEntity>, ArrayList<TvShowResponse>>(
+                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<TvShowEntity>> {
-                return localDataSource.getAllTvShowsSortRating()
+            override fun loadFromDB(): Flow<List<TvShow>> {
+                return localDataSource.getAllTvShowsSortRating().map {
+                    MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<TvShowEntity>?): Boolean {
+            override fun shouldFetch(data: List<TvShow>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<TvShowResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
                 Log.d(TAG, "createCall: ")
                 return remoteDataSource.getPopularTvShows()
             }
 
-            override fun saveCallResult(data: ArrayList<TvShowResponse>) {
-                val tvShowList =
-                        ArrayList<TvShowEntity>()
-                for (response in data) {
-                    val tvShow = TvShowEntity(
-                            response.id,
-                            response.originalName,
-                            response.posterPath,
-                            response.voteAverage,
-                            "",
-                            0,
-                            "",
-                            response.firstAirDate,
-                            response.overview
-                    )
-                    tvShowList.add(tvShow)
-                }
-                Log.d(TAG, "saveCallResult: ${tvShowList}")
-                localDataSource.insertTvShow(tvShowList)
+            override suspend fun saveCallResult(data: ArrayList<TvShowResponse>) {
+                localDataSource.insertTvShow(MappingHelper.mapTvShowResponsesToTvShowsEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getPopularTvShowsSortRandom(): LiveData<Resource<List<TvShowEntity>>> {
+    override fun getPopularTvShowsSortRandom(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShowEntity>, ArrayList<TvShowResponse>>(
+                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<TvShowEntity>> {
-                return localDataSource.getAllTvShowsSortRandom()
+            override fun loadFromDB(): Flow<List<TvShow>> {
+                return localDataSource.getAllTvShowsSortRandom().map {
+                    MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<TvShowEntity>?): Boolean {
+            override fun shouldFetch(data: List<TvShow>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<TvShowResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
                 Log.d(TAG, "createCall: ")
                 return remoteDataSource.getPopularTvShows()
             }
 
-            override fun saveCallResult(data: ArrayList<TvShowResponse>) {
-                val tvShowList =
-                        ArrayList<TvShowEntity>()
-                for (response in data) {
-                    val tvShow = TvShowEntity(
-                            response.id,
-                            response.originalName,
-                            response.posterPath,
-                            response.voteAverage,
-                            "",
-                            0,
-                            "",
-                            response.firstAirDate,
-                            response.overview
-                    )
-                    tvShowList.add(tvShow)
-                }
-                Log.d(TAG, "saveCallResult: ${tvShowList}")
-                localDataSource.insertTvShow(tvShowList)
+            override suspend fun saveCallResult(data: ArrayList<TvShowResponse>) {
+                localDataSource.insertTvShow(MappingHelper.mapTvShowResponsesToTvShowsEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getPopularTvShows(): LiveData<Resource<List<TvShowEntity>>> {
+    override fun getPopularTvShows(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShowEntity>, ArrayList<TvShowResponse>>(
+                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>(
                         appExecutors
                 ) {
-            override fun loadFromDB(): LiveData<List<TvShowEntity>> {
-                return localDataSource.getAllTvShows()
+            override fun loadFromDB(): Flow<List<TvShow>> {
+                return localDataSource.getAllTvShows().map {
+                    MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<TvShowEntity>?): Boolean {
+            override fun shouldFetch(data: List<TvShow>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<ArrayList<TvShowResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
                 Log.d(TAG, "createCall: ")
                 return remoteDataSource.getPopularTvShows()
             }
 
-            override fun saveCallResult(data: ArrayList<TvShowResponse>) {
-                val tvShowList =
-                        ArrayList<TvShowEntity>()
-                for (response in data) {
-                    val tvShow = TvShowEntity(
-                            response.id,
-                            response.originalName,
-                            response.posterPath,
-                            response.voteAverage,
-                            "",
-                            0,
-                            "",
-                            response.firstAirDate,
-                            response.overview
-                    )
-                    tvShowList.add(tvShow)
-                }
-                Log.d(TAG, "saveCallResult: ${tvShowList}")
-                localDataSource.insertTvShow(tvShowList)
+            override suspend fun saveCallResult(data: ArrayList<TvShowResponse>) {
+                localDataSource.insertTvShow(MappingHelper.mapTvShowResponsesToTvShowsEntities(data))
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getDetailTvShows(tvId: Int): LiveData<Resource<TvShowEntity>> {
-        return object : NetworkBoundResource<TvShowEntity, TvShowDetailResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TvShowEntity> {
-                return localDataSource.getTvShowById(tvId)
+    override fun getDetailTvShows(tvId: Int): Flow<Resource<TvShow>> {
+        return object : NetworkBoundResource<TvShow, TvShowDetailResponse>(appExecutors) {
+            override fun loadFromDB(): Flow<TvShow> {
+                return localDataSource.getTvShowById(tvId).map {
+                    MappingHelper.mapOneTvShowEntitieToOneTvShowDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: TvShowEntity?): Boolean {
+            override fun shouldFetch(data: TvShow?): Boolean {
                 return data == null || data.genre == ""
             }
 
-            override fun createCall(): LiveData<ApiResponse<TvShowDetailResponse>> {
+            override suspend fun createCall(): Flow<ApiResponse<TvShowDetailResponse>> {
                 return remoteDataSource.getDetailTvShows(tvId)
             }
 
-            override fun saveCallResult(data: TvShowDetailResponse) {
+            override suspend fun saveCallResult(data: TvShowDetailResponse) {
                 localDataSource.updateTvShow(
                         MappingHelper.mapTvShowDetailResponsesToTvShowEntitiesDb(
                                 data
                         )
                 )
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun updateTvShow(tvShowEntity: TvShowEntity) {
-        appExecutors.diskIO().execute { localDataSource.updateTvShow(tvShowEntity) }
+    override fun updateTvShow(tvShow: TvShow) {
+        appExecutors.diskIO().execute { localDataSource.updateTvShow(MappingHelper.mapTvShowDomainToTvShowEntities(tvShow)) }
     }
 
-    override fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> {
-        return localDataSource.getFavoriteTvShows()
+    override fun getFavoriteTvShows(): Flow<List<TvShow>> {
+        return localDataSource.getFavoriteTvShows().map {
+            MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
+        }
     }
 
     companion object {

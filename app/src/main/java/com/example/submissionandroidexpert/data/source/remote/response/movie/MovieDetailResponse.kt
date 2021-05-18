@@ -14,9 +14,6 @@ data class MovieDetailResponse(
     @field:SerializedName("imdb_id")
     val imdbId: String,
 
-    @field:SerializedName("video")
-    val video: Boolean,
-
     @field:SerializedName("title")
     val title: String,
 

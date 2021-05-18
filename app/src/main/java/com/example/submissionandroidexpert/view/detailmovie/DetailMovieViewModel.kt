@@ -3,9 +3,11 @@ package com.example.submissionandroidexpert.view.detailmovie
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.example.submissionandroidexpert.data.source.repository.MovieListRepository
+import com.example.submissionandroidexpert.domain.usecase.MovieListUseCase
 
-class DetailMovieViewModel(private val repository: MovieListRepository) : ViewModel() {
+class DetailMovieViewModel(private val useCase: MovieListUseCase) : ViewModel() {
     private var movieId = MutableLiveData<Int>()
 
     fun setMovie(movieId: Int) {
@@ -13,7 +15,7 @@ class DetailMovieViewModel(private val repository: MovieListRepository) : ViewMo
     }
 
     var movie = Transformations.switchMap(movieId) { mMovId ->
-        repository.getDetailMovie(mMovId)
+        useCase.getDetailMovie(mMovId).asLiveData()
     }
 
     fun setBookmark(favoriteStatus : Boolean) {
@@ -22,7 +24,7 @@ class DetailMovieViewModel(private val repository: MovieListRepository) : ViewMo
             val movieData = movieResource.data
             if (movieData != null){
                 movieData.favorite = favoriteStatus
-                repository.updateMovie(movieData)
+                useCase.updateMovie(movieData)
             }
         }
     }

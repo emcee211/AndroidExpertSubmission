@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
 import com.example.submissionandroidexpert.databinding.ActivityDetailMovieBinding
+import com.example.submissionandroidexpert.domain.model.Movie
 import com.example.submissionandroidexpert.utils.Constant
 import com.example.submissionandroidexpert.utils.MappingHelper
 import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
@@ -19,7 +19,7 @@ import com.example.submissionandroidexpert.vo.Status
 
 class DetailMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailMovieBinding
-    private lateinit var movie: MovieEntity
+    private lateinit var movie: Movie
 
     private lateinit var viewModel: DetailMovieViewModel
 
@@ -68,7 +68,7 @@ class DetailMovieActivity : AppCompatActivity() {
         })
     }
 
-    private fun setItems(movie: MovieEntity) {
+    private fun setItems(movie: Movie) {
         setBookmarkMenuState(movie.favorite)
 
         binding.apply {

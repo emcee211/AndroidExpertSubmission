@@ -6,132 +6,98 @@ import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.load.HttpException
 import com.example.submissionandroidexpert.BuildConfig
 import com.example.submissionandroidexpert.data.retrofit.RetrofitInstance
+import com.example.submissionandroidexpert.data.source.remote.response.GenresItemResponse
 import com.example.submissionandroidexpert.data.source.remote.response.movie.MovieDetailResponse
 import com.example.submissionandroidexpert.data.source.remote.response.movie.MovieResponse
 import com.example.submissionandroidexpert.data.source.remote.response.tvshow.TvShowDetailResponse
 import com.example.submissionandroidexpert.data.source.remote.response.tvshow.TvShowResponse
+import com.example.submissionandroidexpert.utils.DataDummy
 import com.example.submissionandroidexpert.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 class RemoteDataSource private constructor(private val retrofitInstance: RetrofitInstance) {
-    fun getPopularMovies() : LiveData<ApiResponse<ArrayList<MovieResponse>>> {
-        EspressoIdlingResource.increment()
-        var movieArrayList = MutableLiveData<ApiResponse<ArrayList<MovieResponse>>>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = try {
-                retrofitInstance.api.getPopularMovies(
+    suspend fun getPopularMovies(): Flow<ApiResponse<ArrayList<MovieResponse>>> {
+        return flow {
+            try {
+                val response = retrofitInstance.api.getPopularMovies(
                     BuildConfig.API_KEY,
                 )
-            } catch (e: IOException) {
-                Log.e(TAG, "IOException, you might not have internet connection")
-                return@launch
-            } catch (e: HttpException) {
-                Log.e(TAG, "HttpException, unexpected response")
-                return@launch
-            }
-            if (response.isSuccessful) {
                 val responseBody = response.body()
                 if (responseBody != null) {
-                    movieArrayList.postValue(ApiResponse.success(responseBody.results))
-                    EspressoIdlingResource.decrement()
+                    emit(ApiResponse.Success(responseBody.results))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
-            } else {
-                Log.e(TAG, "Something went wrong")
+            } catch (e: HttpException) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e(TAG, e.toString())
             }
-        }
-        return movieArrayList
+        }.flowOn(Dispatchers.IO)
     }
 
-    fun getDetailMovie(movieId: Int) : LiveData<ApiResponse<MovieDetailResponse>> {
-        EspressoIdlingResource.increment()
-        var movie = MutableLiveData<ApiResponse<MovieDetailResponse>>()
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = try {
-                retrofitInstance.api.getMovieDetail(
+    fun getDetailMovie(movieId: Int): Flow<ApiResponse<MovieDetailResponse>> {
+        return flow {
+            try {
+                val response = retrofitInstance.api.getMovieDetail(
                     movieId,
-                    BuildConfig.API_KEY
+                    BuildConfig.API_KEY,
                 )
-            } catch (e: IOException) {
-                Log.e(TAG, "IOException, you might not have internet connection")
-                return@launch
-            } catch (e: HttpException) {
-                Log.e(TAG, "HttpException, unexpected response")
-                return@launch
-            }
-            if (response.isSuccessful) {
                 val responseBody = response.body()
                 if (responseBody != null) {
-                    movie.postValue(ApiResponse.success(responseBody))
-                    EspressoIdlingResource.decrement()
+                    emit(ApiResponse.Success(responseBody))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
-            } else {
-                Log.e(TAG, "Something went wrong")
+            } catch (e: HttpException) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e(TAG, e.toString())
             }
-        }
-        return movie
+        }.flowOn(Dispatchers.IO)
     }
 
-    fun getPopularTvShows() : LiveData<ApiResponse<ArrayList<TvShowResponse>>> {
-        EspressoIdlingResource.increment()
-        var tvShowArrayList = MutableLiveData<ApiResponse<ArrayList<TvShowResponse>>>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = try {
-                retrofitInstance.api.getPopularTvShows(
-                    BuildConfig.API_KEY
+    fun getPopularTvShows(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
+        return flow {
+            try {
+                val response = retrofitInstance.api.getPopularTvShows(
+                    BuildConfig.API_KEY,
                 )
-            } catch (e: IOException) {
-                Log.e(TAG, "IOException, you might not have internet connection")
-                return@launch
-            } catch (e: HttpException) {
-                Log.e(TAG, "HttpException, unexpected response")
-                return@launch
-            }
-            if (response.isSuccessful) {
                 val responseBody = response.body()
                 if (responseBody != null) {
-                    tvShowArrayList.postValue(ApiResponse.success(responseBody.results))
-                    EspressoIdlingResource.decrement()
+                    emit(ApiResponse.Success(responseBody.results))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
-            } else {
-                Log.e(TAG, "Something went wrong")
+            } catch (e: HttpException) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e(TAG, e.toString())
             }
-        }
-        return tvShowArrayList
+        }.flowOn(Dispatchers.IO)
     }
 
-    fun getDetailTvShows(tvId: Int) : LiveData<ApiResponse<TvShowDetailResponse>> {
-        EspressoIdlingResource.increment()
-        var tvShow = MutableLiveData<ApiResponse<TvShowDetailResponse>>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = try {
-                retrofitInstance.api.getTvShowDetail(
+    fun getDetailTvShows(tvId: Int): Flow<ApiResponse<TvShowDetailResponse>> {
+        return flow {
+            try {
+                val response = retrofitInstance.api.getTvShowDetail(
                     tvId,
-                    BuildConfig.API_KEY
+                    BuildConfig.API_KEY,
                 )
-            } catch (e: IOException) {
-                Log.e(TAG, "IOException, you might not have internet connection")
-                return@launch
-            } catch (e: HttpException) {
-                Log.e(TAG, "HttpException, unexpected response")
-                return@launch
-            }
-            if (response.isSuccessful) {
                 val responseBody = response.body()
                 if (responseBody != null) {
-                    tvShow.postValue(ApiResponse.success(responseBody))
-                    EspressoIdlingResource.decrement()
+                    emit(ApiResponse.Success(responseBody))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
-            } else {
-                Log.e(TAG, "Something went wrong")
+            } catch (e: HttpException) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e(TAG, e.toString())
             }
-        }
-        return tvShow
+        }.flowOn(Dispatchers.IO)
     }
 
     companion object {
@@ -142,6 +108,7 @@ class RemoteDataSource private constructor(private val retrofitInstance: Retrofi
             instance ?: synchronized(this) {
                 instance ?: RemoteDataSource(retrofitInstance).apply { instance = this }
             }
+
         private val TAG = "=========== REMOTE DATA SOURCE"
     }
 }

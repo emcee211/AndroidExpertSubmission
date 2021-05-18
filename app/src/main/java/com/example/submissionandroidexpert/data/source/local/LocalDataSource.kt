@@ -1,10 +1,9 @@
 package com.example.submissionandroidexpert.data.source.local
 
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
 import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 import com.example.submissionandroidexpert.data.source.local.room.MovieListDao
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(private val mMovieListDao: MovieListDao) {
 
@@ -17,44 +16,44 @@ class LocalDataSource private constructor(private val mMovieListDao: MovieListDa
 
     //tvshow
 
-    fun getAllTvShows(): LiveData<List<TvShowEntity>> = mMovieListDao.getTvShows()
+    fun getAllTvShows(): Flow<List<TvShowEntity>> = mMovieListDao.getTvShows()
 
-    fun getAllTvShowsSortName(): LiveData<List<TvShowEntity>> =
+    fun getAllTvShowsSortName(): Flow<List<TvShowEntity>> =
         mMovieListDao.getTvShowsSortName()
 
-    fun getAllTvShowsSortRating(): LiveData<List<TvShowEntity>> =
+    fun getAllTvShowsSortRating(): Flow<List<TvShowEntity>> =
         mMovieListDao.getTvShowsSortRating()
 
-    fun getAllTvShowsSortRandom(): LiveData<List<TvShowEntity>> =
+    fun getAllTvShowsSortRandom(): Flow<List<TvShowEntity>> =
         mMovieListDao.getTvShowsSortRandom()
 
-    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> =
+    fun getFavoriteTvShows(): Flow<List<TvShowEntity>> =
         mMovieListDao.getFavoritTvShows()
 
-    fun getTvShowById(id: Int): LiveData<TvShowEntity> = mMovieListDao.getTvShowByTvId(id)
+    fun getTvShowById(id: Int): Flow<TvShowEntity> = mMovieListDao.getTvShowByTvId(id)
 
     fun updateTvShow(tvshow: TvShowEntity) = mMovieListDao.updateTvShow(tvshow)
 
-    fun insertTvShow(tvshow: List<TvShowEntity>) = mMovieListDao.insertTvShow(tvshow)
+    suspend fun insertTvShow(tvshow: List<TvShowEntity>) = mMovieListDao.insertTvShow(tvshow)
 
     //movie
 
-    fun getAllMovies(): LiveData<List<MovieEntity>> = mMovieListDao.getMovies()
+    fun getAllMovies(): Flow<List<MovieEntity>> = mMovieListDao.getMovies()
 
-    fun getAllMoviesSortName(): LiveData<List<MovieEntity>> =
+    fun getAllMoviesSortName(): Flow<List<MovieEntity>> =
         mMovieListDao.getMoviesSortName()
 
-    fun getAllMoviesSortRating(): LiveData<List<MovieEntity>> =
+    fun getAllMoviesSortRating(): Flow<List<MovieEntity>> =
         mMovieListDao.getMoviesSortRating()
 
-    fun getAllMoviesSortRandom(): LiveData<List<MovieEntity>> =
+    fun getAllMoviesSortRandom(): Flow<List<MovieEntity>> =
         mMovieListDao.getMoviesSortRandom()
 
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = mMovieListDao.getFavoritMovies()
+    fun getFavoriteMovies(): Flow<List<MovieEntity>> = mMovieListDao.getFavoritMovies()
 
-    fun getMovieById(id: Int): LiveData<MovieEntity> = mMovieListDao.getMovieByTvId(id)
+    fun getMovieById(id: Int): Flow<MovieEntity> = mMovieListDao.getMovieByTvId(id)
 
     fun updateMovie(movie: MovieEntity) = mMovieListDao.updateMovie(movie)
 
-    fun insertMovie(movie: List<MovieEntity>) = mMovieListDao.insertMovie(movie)
+    suspend fun insertMovie(movie: List<MovieEntity>) = mMovieListDao.insertMovie(movie)
 }

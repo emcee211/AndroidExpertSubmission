@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.MovieEntity
 import com.example.submissionandroidexpert.databinding.FragmentMovieFavBinding
+import com.example.submissionandroidexpert.domain.model.Movie
 import com.example.submissionandroidexpert.view.movie.ItemMovieListAdapter
 import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
 
@@ -21,7 +21,7 @@ class MovieFavFragment : Fragment() {
     private lateinit var rvMovie: RecyclerView
     private lateinit var movieListAdapter: ItemMovieListAdapter
 
-    private lateinit var movies: List<MovieEntity>
+    private lateinit var movies: List<Movie>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,7 @@ class MovieFavFragment : Fragment() {
         getData()
     }
 
-    private fun showRV(movies: List<MovieEntity>) {
+    private fun showRV(movies: List<Movie>) {
         movieListAdapter.setList(movies)
 
         binding.progressBar.visibility = View.INVISIBLE

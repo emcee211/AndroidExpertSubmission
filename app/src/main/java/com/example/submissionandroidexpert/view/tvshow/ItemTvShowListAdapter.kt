@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 import com.example.submissionandroidexpert.databinding.ItemMovieListBinding
+import com.example.submissionandroidexpert.domain.model.TvShow
 import com.example.submissionandroidexpert.utils.Constant
 import com.example.submissionandroidexpert.view.detailtvshow.DetailTvShowActivity
 
 class ItemTvShowListAdapter : RecyclerView.Adapter<ItemTvShowListAdapter.ItemTvShowListViewHolder>() {
 
-    private lateinit var list: List<TvShowEntity>
+    private lateinit var list: List<TvShow>
 
-    fun setList(list: List<TvShowEntity>) {
+    fun setList(list: List<TvShow>) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -30,14 +30,12 @@ class ItemTvShowListAdapter : RecyclerView.Adapter<ItemTvShowListAdapter.ItemTvS
 
     override fun onBindViewHolder(holder: ItemTvShowListViewHolder, position: Int) {
         val tvshow = list[position]
-        if (tvshow != null) {
-            holder.bind(tvshow)
-        }
+        holder.bind(tvshow)
     }
 
     class ItemTvShowListViewHolder(private val binding: ItemMovieListBinding) :
             RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvshow: TvShowEntity) {
+        fun bind(tvshow: TvShow) {
             Log.d("DEBUGADAPTER", "bind: ")
             with(binding) {
                 Glide.with(itemView.context)

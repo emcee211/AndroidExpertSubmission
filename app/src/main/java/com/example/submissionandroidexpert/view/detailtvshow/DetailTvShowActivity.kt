@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 import com.example.submissionandroidexpert.databinding.ActivityDetailTvshowBinding
+import com.example.submissionandroidexpert.domain.model.TvShow
 import com.example.submissionandroidexpert.utils.Constant
 import com.example.submissionandroidexpert.utils.MappingHelper
 import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
@@ -20,7 +20,7 @@ import com.example.submissionandroidexpert.vo.Status
 
 class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailTvshowBinding
-    private lateinit var tvs: TvShowEntity
+    private lateinit var tvs: TvShow
 
     private lateinit var viewModel: DetailTvShowViewModel
 
@@ -69,7 +69,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         })
     }
 
-    private fun setItems(tvshow: TvShowEntity) {
+    private fun setItems(tvshow: TvShow) {
         Log.d("TAG", "TAGsetItems: ${tvshow.favorite}")
         setBookmarkMenuState(tvshow.favorite)
 

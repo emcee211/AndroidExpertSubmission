@@ -35,17 +35,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_favorite_list) {
-            val pIntent = Intent(this@HomeActivity, FavoriteActivity::class.java)
-            startActivity(pIntent)
-        } else if (item.itemId == R.id.sort_rating) {
-            sectionsPagerAdapter.sortBy.value = SortBy.RATING
-        } else if (item.itemId == R.id.sort_name) {
-            sectionsPagerAdapter.sortBy.value = SortBy.NAME
-        } else if (item.itemId == R.id.sort_random) {
-            sectionsPagerAdapter.sortBy.value = SortBy.RANDOM
-        } else if (item.itemId == R.id.sort_popular) {
-            sectionsPagerAdapter.sortBy.value = SortBy.NONE
+        when (item.itemId) {
+            R.id.action_favorite_list -> {
+                val pIntent = Intent(this@HomeActivity, FavoriteActivity::class.java)
+                startActivity(pIntent)
+            }
+            R.id.sort_rating -> sectionsPagerAdapter.sortBy.value = SortBy.RATING
+            R.id.sort_name -> sectionsPagerAdapter.sortBy.value = SortBy.NAME
+            R.id.sort_random -> sectionsPagerAdapter.sortBy.value = SortBy.RANDOM
+            R.id.sort_popular -> sectionsPagerAdapter.sortBy.value = SortBy.NONE
         }
         return super.onOptionsItemSelected(item)
     }

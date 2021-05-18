@@ -9,7 +9,6 @@ import com.example.submissionandroidexpert.view.home.HomeActivity
 
 class SplashSreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashSreenBinding
-    private var TIME_OUT: Long = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +20,9 @@ class SplashSreenActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, TIME_OUT)
+    }
+
+    companion object {
+        const val TIME_OUT: Long = 3000
     }
 }

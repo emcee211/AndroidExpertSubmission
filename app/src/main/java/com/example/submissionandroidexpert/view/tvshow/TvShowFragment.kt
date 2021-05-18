@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.data.source.local.entity.TvShowEntity
 import com.example.submissionandroidexpert.databinding.FragmentTvShowBinding
+import com.example.submissionandroidexpert.domain.model.TvShow
 import com.example.submissionandroidexpert.utils.SortBy
 import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
 import com.example.submissionandroidexpert.vo.Status
@@ -24,7 +24,7 @@ class TvShowFragment(private val sortBy: LiveData<String>) : Fragment() {
     private lateinit var rvTvShow: RecyclerView
     private lateinit var tvlistListAdapter: ItemTvShowListAdapter
 
-    private lateinit var tvshows: List<TvShowEntity>
+    private lateinit var tvshows: List<TvShow>
 
     private var sortParam = SortBy.NONE
 
@@ -57,7 +57,7 @@ class TvShowFragment(private val sortBy: LiveData<String>) : Fragment() {
         getData()
     }
 
-    private fun showRV(tvs: List<TvShowEntity>) {
+    private fun showRV(tvs: List<TvShow>) {
         tvlistListAdapter.setList(tvs)
 
         binding.progressBar.visibility = View.INVISIBLE
