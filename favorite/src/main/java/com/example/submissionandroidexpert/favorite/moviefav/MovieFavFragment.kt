@@ -1,4 +1,4 @@
-package com.example.submissionandroidexpert.view.moviefav
+package com.example.submissionandroidexpert.favorite.moviefav
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.core.domain.model.Movie
-import com.example.submissionandroidexpert.databinding.FragmentMovieFavBinding
+import com.example.submissionandroidexpert.favorite.databinding.FragmentMovieFavBinding
 import com.example.submissionandroidexpert.view.movie.ItemMovieListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 

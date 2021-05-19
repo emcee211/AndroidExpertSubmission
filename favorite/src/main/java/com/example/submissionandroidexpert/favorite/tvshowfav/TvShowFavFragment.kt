@@ -1,4 +1,4 @@
-package com.example.submissionandroidexpert.view.tvshowfav
+package com.example.submissionandroidexpert.favorite.tvshowfav
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.core.domain.model.TvShow
-import com.example.submissionandroidexpert.databinding.FragmentTvShowFavBinding
+import com.example.submissionandroidexpert.favorite.databinding.FragmentTvShowFavBinding
 import com.example.submissionandroidexpert.view.tvshow.ItemTvShowListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 

@@ -1,6 +1,7 @@
 package com.example.submissionandroidexpert.view.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.core.utils.SortBy
 import com.example.submissionandroidexpert.databinding.ActivityHomeBinding
-import com.example.submissionandroidexpert.view.favorite.FavoriteActivity
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -37,8 +37,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_favorite_list -> {
-                val pIntent = Intent(this@HomeActivity, FavoriteActivity::class.java)
-                startActivity(pIntent)
+                val uri = Uri.parse("submissionandroidexpert://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
             R.id.sort_rating -> sectionsPagerAdapter.sortBy.value = SortBy.RATING
             R.id.sort_name -> sectionsPagerAdapter.sortBy.value = SortBy.NAME

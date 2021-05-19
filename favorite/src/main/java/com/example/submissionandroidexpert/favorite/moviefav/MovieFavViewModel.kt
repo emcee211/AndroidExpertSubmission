@@ -1,4 +1,4 @@
-package com.example.submissionandroidexpert.view.moviefav
+package com.example.submissionandroidexpert.favorite.moviefav
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

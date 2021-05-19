@@ -1,4 +1,4 @@
-package com.example.submissionandroidexpert.view.favorite
+package com.example.submissionandroidexpert.favorite.favorite
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.view.moviefav.MovieFavFragment
-import com.example.submissionandroidexpert.view.tvshowfav.TvShowFavFragment
+import com.example.submissionandroidexpert.favorite.moviefav.MovieFavFragment
+import com.example.submissionandroidexpert.favorite.tvshowfav.TvShowFavFragment
 
 class SectionsPagerAdapterForFavorite(private val mContext: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

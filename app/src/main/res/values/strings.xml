@@ -32,5 +32,6 @@
     <string name="favorite_activity_title">Favourite List</string>
     <string name="sortrating">Sort by rating</string>
     <string name="sortrandom">Random list</string>
+    <string name="title_favorite">Favorite</string>
 
 </resources>
