@@ -9,11 +9,11 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.core.domain.model.Movie
 import com.example.submissionandroidexpert.core.utils.Constant
-import com.example.submissionandroidexpert.core.utils.MappingHelper
-import com.example.submissionandroidexpert.databinding.ActivityDetailMovieBinding
 import com.example.submissionandroidexpert.core.vo.Status
+import com.example.submissionandroidexpert.databinding.ActivityDetailMovieBinding
+import com.example.submissionandroidexpert.model.Movie
+import com.example.submissionandroidexpert.utils.MappingHelper
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMovieActivity : AppCompatActivity() {
@@ -48,8 +48,9 @@ class DetailMovieActivity : AppCompatActivity() {
                 when (movie.status) {
                     Status.LOADING -> loadingUI()
                     Status.SUCCESS -> if (movie.data != null) {
-                        this.movie = movie.data!!
-                        setItems(movie.data!!)
+                        this.movie =
+                            MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(movie.data!!)
+                        setItems(MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(movie.data!!))
                     }
                     Status.ERROR -> {
                         notFoundUI()

@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.core.domain.model.Movie
 import com.example.submissionandroidexpert.core.utils.SortBy
-import com.example.submissionandroidexpert.databinding.FragmentMovieBinding
 import com.example.submissionandroidexpert.core.vo.Status
+import com.example.submissionandroidexpert.databinding.FragmentMovieBinding
+import com.example.submissionandroidexpert.model.Movie
+import com.example.submissionandroidexpert.utils.MappingHelper
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
@@ -26,7 +27,7 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
 
     private var sortParam = SortBy.NONE
 
-    private val movieViewModel : MovieViewModel by viewModel()
+    private val movieViewModel: MovieViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,8 +86,9 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
                 when (movies.status) {
                     Status.LOADING -> hideRv()
                     Status.SUCCESS -> if (movies.data != null) {
-                        if (movies.data!!.isNotEmpty()){
-                            this.movies = movies.data!!
+                        if (movies.data!!.isNotEmpty()) {
+                            this.movies =
+                                MappingHelper.mapListMovieDomainModelToMovieViewEntities(movies.data!!)
                             showRV(this.movies)
                         }
                     } else {

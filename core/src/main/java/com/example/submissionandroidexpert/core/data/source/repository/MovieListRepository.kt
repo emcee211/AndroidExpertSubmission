@@ -28,7 +28,8 @@ class MovieListRepository(
         return object :
             NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
             override fun loadFromDB(): Flow<List<Movie>> {
-                return localDataSource.getAllMovies().map { MappingHelper.mapMovieEntitiesToMovieDomain(it) }
+                return localDataSource.getAllMovies()
+                    .map { MappingHelper.mapMovieEntitiesToMovieDomain(it) }
             }
 
             override fun shouldFetch(data: List<Movie>?): Boolean {
@@ -47,7 +48,7 @@ class MovieListRepository(
 
     override fun getPopularMoviesSortName(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
+            NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
             override fun loadFromDB(): Flow<List<Movie>> {
                 return localDataSource.getAllMoviesSortName().map {
                     MappingHelper.mapMovieEntitiesToMovieDomain(it)
@@ -70,7 +71,7 @@ class MovieListRepository(
 
     override fun getPopularMoviesSortRating(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
+            NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
             override fun loadFromDB(): Flow<List<Movie>> {
                 return localDataSource.getAllMoviesSortRating().map {
                     MappingHelper.mapMovieEntitiesToMovieDomain(it)
@@ -93,7 +94,7 @@ class MovieListRepository(
 
     override fun getPopularMoviesSortRandom(): Flow<Resource<List<Movie>>> {
         return object :
-                NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
+            NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
             override fun loadFromDB(): Flow<List<Movie>> {
                 return localDataSource.getAllMoviesSortRandom().map {
                     MappingHelper.mapMovieEntitiesToMovieDomain(it)
@@ -131,13 +132,18 @@ class MovieListRepository(
             }
 
             override suspend fun saveCallResult(data: MovieDetailResponse) {
-                appExecutors.diskIO().execute { localDataSource.updateMovie(MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(data)) }
+                appExecutors.diskIO().execute {
+                    localDataSource.updateMovie(
+                        MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(data)
+                    )
+                }
             }
         }.asFlow()
     }
 
     override fun updateMovie(movie: Movie) {
-        appExecutors.diskIO().execute { localDataSource.updateMovie(MappingHelper.mapMovieDomainToMovieEntities(movie)) }
+        appExecutors.diskIO()
+            .execute { localDataSource.updateMovie(MappingHelper.mapMovieDomainToMovieEntities(movie)) }
     }
 
     override fun getFavoriteMovies(): Flow<List<Movie>> {
@@ -148,7 +154,7 @@ class MovieListRepository(
 
     override fun getPopularTvShowsSortName(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
+            NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
             override fun loadFromDB(): Flow<List<TvShow>> {
                 return localDataSource.getAllTvShowsSortName().map {
                     MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
@@ -171,7 +177,7 @@ class MovieListRepository(
 
     override fun getPopularTvShowsSortRating(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
+            NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
             override fun loadFromDB(): Flow<List<TvShow>> {
                 return localDataSource.getAllTvShowsSortRating().map {
                     MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
@@ -195,7 +201,7 @@ class MovieListRepository(
 
     override fun getPopularTvShowsSortRandom(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
+            NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
             override fun loadFromDB(): Flow<List<TvShow>> {
                 return localDataSource.getAllTvShowsSortRandom().map {
                     MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
@@ -219,7 +225,7 @@ class MovieListRepository(
 
     override fun getPopularTvShows(): Flow<Resource<List<TvShow>>> {
         return object :
-                NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
+            NetworkBoundResource<List<TvShow>, ArrayList<TvShowResponse>>() {
             override fun loadFromDB(): Flow<List<TvShow>> {
                 return localDataSource.getAllTvShows().map {
                     MappingHelper.mapTvShowEntitiesToTvShowDomain(it)
@@ -258,13 +264,21 @@ class MovieListRepository(
             }
 
             override suspend fun saveCallResult(data: TvShowDetailResponse) {
-                appExecutors.diskIO().execute { localDataSource.updateTvShow(MappingHelper.mapTvShowDetailResponsesToTvShowEntitiesDb(data)) }
+                appExecutors.diskIO().execute {
+                    localDataSource.updateTvShow(
+                        MappingHelper.mapTvShowDetailResponsesToTvShowEntitiesDb(data)
+                    )
+                }
             }
         }.asFlow()
     }
 
     override fun updateTvShow(tvShow: TvShow) {
-        appExecutors.diskIO().execute { localDataSource.updateTvShow(MappingHelper.mapTvShowDomainToTvShowEntities(tvShow)) }
+        appExecutors.diskIO().execute {
+            localDataSource.updateTvShow(
+                MappingHelper.mapTvShowDomainToTvShowEntities(tvShow)
+            )
+        }
     }
 
     override fun getFavoriteTvShows(): Flow<List<TvShow>> {

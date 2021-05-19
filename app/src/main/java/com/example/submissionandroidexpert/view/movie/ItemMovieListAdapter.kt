@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.core.R
 import com.example.submissionandroidexpert.core.databinding.ItemMovieListBinding
-import com.example.submissionandroidexpert.core.domain.model.Movie
 import com.example.submissionandroidexpert.core.utils.Constant
+import com.example.submissionandroidexpert.model.Movie
 import com.example.submissionandroidexpert.view.detailmovie.DetailMovieActivity
 
 class ItemMovieListAdapter : RecyclerView.Adapter<ItemMovieListAdapter.ItemMovieListViewHolder>() {
@@ -23,7 +23,7 @@ class ItemMovieListAdapter : RecyclerView.Adapter<ItemMovieListAdapter.ItemMovie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemMovieListViewHolder {
         val binding =
-                ItemMovieListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMovieListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemMovieListViewHolder(binding)
     }
 
@@ -33,16 +33,16 @@ class ItemMovieListAdapter : RecyclerView.Adapter<ItemMovieListAdapter.ItemMovie
     }
 
     class ItemMovieListViewHolder(private val binding: ItemMovieListBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             with(binding) {
                 Glide.with(itemView.context)
-                        .load(Constant.BASE_IMAGE_URL + movie.posterPath)
-                        .apply(
-                                RequestOptions.placeholderOf(R.drawable.ic_loading_24)
-                                        .error(R.drawable.ic_error_24)
-                        )
-                        .into(imgItemPhoto)
+                    .load(Constant.BASE_IMAGE_URL + movie.posterPath)
+                    .apply(
+                        RequestOptions.placeholderOf(R.drawable.ic_loading_24)
+                            .error(R.drawable.ic_error_24)
+                    )
+                    .into(imgItemPhoto)
                 tvItemTitle.text = movie.title
                 tvItemRating.text = movie.rating.toString()
                 rbItemRating.rating = movie.rating.toFloat() / 2

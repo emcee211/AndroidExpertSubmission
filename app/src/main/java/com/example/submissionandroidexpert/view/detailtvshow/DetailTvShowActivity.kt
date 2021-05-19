@@ -10,11 +10,11 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.core.domain.model.TvShow
 import com.example.submissionandroidexpert.core.utils.Constant
-import com.example.submissionandroidexpert.core.utils.MappingHelper
-import com.example.submissionandroidexpert.databinding.ActivityDetailTvshowBinding
 import com.example.submissionandroidexpert.core.vo.Status
+import com.example.submissionandroidexpert.databinding.ActivityDetailTvshowBinding
+import com.example.submissionandroidexpert.model.TvShow
+import com.example.submissionandroidexpert.utils.MappingHelper
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailTvShowActivity : AppCompatActivity() {
@@ -49,8 +49,9 @@ class DetailTvShowActivity : AppCompatActivity() {
                 when (tvs.status) {
                     Status.LOADING -> loadingUI()
                     Status.SUCCESS -> if (tvs.data != null) {
-                        this.tvs = tvs.data!!
-                        setItems(tvs.data!!)
+                        this.tvs =
+                            MappingHelper.mapTvShowDomainModelToTvShowsViewEntities(tvs.data!!)
+                        setItems(MappingHelper.mapTvShowDomainModelToTvShowsViewEntities(tvs.data!!))
                     }
                     Status.ERROR -> {
                         notFoundUI()

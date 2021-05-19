@@ -1,16 +1,15 @@
-package com.example.submissionandroidexpert.core.domain.model
+package com.example.submissionandroidexpert.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TvShow(
-    var tvShowId: Int,
+data class Movie(
+    var movieId: Int,
     var title: String,
     var posterPath: String,
     var rating: Double,
-    var status: String = "",
-    var numberOfSeason: Int = 0,
+    var duration: Int = 0,
     var genre: String = "",
     var releaseDate: String = "",
     var plotSummary: String = "",

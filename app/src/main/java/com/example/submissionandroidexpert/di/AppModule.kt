@@ -1,4 +1,4 @@
-package com.example.submissionandroidexpert.core.di
+package com.example.submissionandroidexpert.di
 
 import com.example.submissionandroidexpert.core.domain.usecase.MovieListInteractor
 import com.example.submissionandroidexpert.core.domain.usecase.MovieListUseCase

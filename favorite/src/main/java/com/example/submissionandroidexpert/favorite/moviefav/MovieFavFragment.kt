@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.core.domain.model.Movie
 import com.example.submissionandroidexpert.favorite.databinding.FragmentMovieFavBinding
+import com.example.submissionandroidexpert.model.Movie
+import com.example.submissionandroidexpert.utils.MappingHelper
 import com.example.submissionandroidexpert.view.movie.ItemMovieListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -72,7 +73,7 @@ class MovieFavFragment : Fragment() {
     private fun getData() {
         movieFavViewModel.getFavoriteMovies().observe(this, { movies ->
             if (movies != null && movies.isNotEmpty()) {
-                this.movies = movies
+                this.movies = MappingHelper.mapListMovieDomainModelToMovieViewEntities(movies)
                 showRV(this.movies)
             } else {
                 notFoundUI()

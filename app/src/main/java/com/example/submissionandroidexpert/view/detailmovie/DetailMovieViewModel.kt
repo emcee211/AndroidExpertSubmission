@@ -17,11 +17,11 @@ class DetailMovieViewModel(private val useCase: MovieListUseCase) : ViewModel() 
         useCase.getDetailMovie(mMovId).asLiveData()
     }
 
-    fun setBookmark(favoriteStatus : Boolean) {
+    fun setBookmark(favoriteStatus: Boolean) {
         val movieResource = movie.value
-        if (movieResource != null){
+        if (movieResource != null) {
             val movieData = movieResource.data
-            if (movieData != null){
+            if (movieData != null) {
                 movieData.favorite = favoriteStatus
                 useCase.updateMovie(movieData)
             }

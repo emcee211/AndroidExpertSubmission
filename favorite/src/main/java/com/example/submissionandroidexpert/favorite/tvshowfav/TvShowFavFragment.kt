@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.core.domain.model.TvShow
 import com.example.submissionandroidexpert.favorite.databinding.FragmentTvShowFavBinding
+import com.example.submissionandroidexpert.model.TvShow
+import com.example.submissionandroidexpert.utils.MappingHelper
 import com.example.submissionandroidexpert.view.tvshow.ItemTvShowListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -72,7 +73,7 @@ class TvShowFavFragment : Fragment() {
     private fun getData() {
         tvFavViewModel.getFavoriteTvShow().observe(this, { tvshows ->
             if (tvshows != null && tvshows.isNotEmpty()) {
-                this.tvshows = tvshows
+                this.tvshows = MappingHelper.mapListTvShowDomainModelToTvShowViewEntities(tvshows)
                 showRV(this.tvshows)
             } else {
                 notFoundUI()

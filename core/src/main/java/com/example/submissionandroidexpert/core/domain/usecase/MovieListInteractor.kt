@@ -6,7 +6,7 @@ import com.example.submissionandroidexpert.core.domain.repository.IMovieListRepo
 import com.example.submissionandroidexpert.core.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
-class MovieListInteractor (private val repo: IMovieListRepository) : MovieListUseCase {
+class MovieListInteractor(private val repo: IMovieListRepository) : MovieListUseCase {
     override fun getPopularMovies(): Flow<Resource<List<Movie>>> {
         return repo.getPopularMovies()
     }
