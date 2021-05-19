@@ -25,8 +25,6 @@ class LocalDataSource constructor(private val mMovieListDao: MovieListDao) {
 
     fun getTvShowById(id: Int): Flow<TvShowEntity> = mMovieListDao.getTvShowByTvId(id)
 
-    suspend fun updateSuspendTvShow(tvshow: TvShowEntity) = mMovieListDao.updateSuspendTvShow(tvshow)
-
     fun updateTvShow(tvshow: TvShowEntity) = mMovieListDao.updateTvShow(tvshow)
 
     suspend fun insertTvShow(tvshow: List<TvShowEntity>) = mMovieListDao.insertTvShow(tvshow)
@@ -47,8 +45,6 @@ class LocalDataSource constructor(private val mMovieListDao: MovieListDao) {
     fun getFavoriteMovies(): Flow<List<MovieEntity>> = mMovieListDao.getFavoritMovies()
 
     fun getMovieById(id: Int): Flow<MovieEntity> = mMovieListDao.getMovieByTvId(id)
-
-    suspend fun updateSuspendMovie(movie: MovieEntity) = mMovieListDao.updateSuspendMovie(movie)
 
     fun updateMovie(movie: MovieEntity) = mMovieListDao.updateMovie(movie)
 

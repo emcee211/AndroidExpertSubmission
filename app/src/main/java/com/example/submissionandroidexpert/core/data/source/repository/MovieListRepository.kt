@@ -138,11 +138,7 @@ class MovieListRepository(
             }
 
             override suspend fun saveCallResult(data: MovieDetailResponse) {
-                localDataSource.updateSuspendMovie(
-                        MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(
-                                data
-                        )
-                )
+                appExecutors.diskIO().execute { localDataSource.updateMovie(MappingHelper.mapMovieDetailResponsesToMovieEntitiesDb(data)) }
             }
         }.asFlow()
     }
@@ -277,11 +273,7 @@ class MovieListRepository(
             }
 
             override suspend fun saveCallResult(data: TvShowDetailResponse) {
-                localDataSource.updateSuspendTvShow(
-                        MappingHelper.mapTvShowDetailResponsesToTvShowEntitiesDb(
-                                data
-                        )
-                )
+                appExecutors.diskIO().execute { localDataSource.updateTvShow(MappingHelper.mapTvShowDetailResponsesToTvShowEntitiesDb(data)) }
             }
         }.asFlow()
     }

@@ -32,9 +32,6 @@ interface MovieListDao {
     suspend fun insertTvShow(tvshows: List<TvShowEntity>)
 
     @Update
-    suspend fun updateSuspendTvShow(tvshow: TvShowEntity)
-
-    @Update
     fun updateTvShow(tvshow: TvShowEntity)
 
     //movies
@@ -62,7 +59,4 @@ interface MovieListDao {
 
     @Update
     fun updateMovie(movie: MovieEntity)
-
-    @Update
-    suspend fun updateSuspendMovie(movie: MovieEntity)
 }
