@@ -1,21 +1,21 @@
 package com.example.submissionandroidexpert.view.detailtvshow
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.databinding.ActivityDetailTvshowBinding
 import com.example.submissionandroidexpert.core.domain.model.TvShow
 import com.example.submissionandroidexpert.core.utils.Constant
 import com.example.submissionandroidexpert.core.utils.MappingHelper
+import com.example.submissionandroidexpert.databinding.ActivityDetailTvshowBinding
+import com.example.submissionandroidexpert.core.vo.Status
 import org.koin.android.viewmodel.ext.android.viewModel
-import com.example.submissionandroidexpert.vo.Status
 
 class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailTvshowBinding
@@ -49,8 +49,8 @@ class DetailTvShowActivity : AppCompatActivity() {
                 when (tvs.status) {
                     Status.LOADING -> loadingUI()
                     Status.SUCCESS -> if (tvs.data != null) {
-                        this.tvs = tvs.data
-                        setItems(tvs.data)
+                        this.tvs = tvs.data!!
+                        setItems(tvs.data!!)
                     }
                     Status.ERROR -> {
                         notFoundUI()

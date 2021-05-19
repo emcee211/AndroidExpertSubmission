@@ -1,11 +1,7 @@
 package com.example.submissionandroidexpert
 
 import android.app.Application
-import com.example.submissionandroidexpert.core.databaseModule
-import com.example.submissionandroidexpert.core.di.useCaseModule
-import com.example.submissionandroidexpert.core.di.viewModelModule
-import com.example.submissionandroidexpert.core.networkModule
-import com.example.submissionandroidexpert.core.repositoryModule
+import com.example.submissionandroidexpert.core.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

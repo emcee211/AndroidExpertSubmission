@@ -1,13 +1,13 @@
 package com.example.submissionandroidexpert.view.home
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.example.submissionandroidexpert.R
-import com.example.submissionandroidexpert.databinding.ActivityHomeBinding
 import com.example.submissionandroidexpert.core.utils.SortBy
+import com.example.submissionandroidexpert.databinding.ActivityHomeBinding
 import com.example.submissionandroidexpert.view.favorite.FavoriteActivity
 
 class HomeActivity : AppCompatActivity() {

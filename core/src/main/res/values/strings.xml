@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Database</string>
+
+    <string name="loading_screen">Loading Screen</string>
+    <string name="movie_list">Movie List</string>
+    <string name="dummy_rating">9.7</string>
+    <string name="dummy">Lorem</string>
+    <string name="plot_summary">Plot Summary</string>
+    <string name="dummy_genre">Mystery</string>
+    <string name="dummy_year">2020</string>
+    <string name="dummy_type">Movie</string>
+    <string name="dummy_title">The Greatest Showman</string>
+
+    <string name="title_tv_show">Tv Shows</string>
+    <string name="title_movie">Movies</string>
+
+    <string name="dummy_duration">120 minutes</string>
+    <string name="dummy_season">9 seasons</string>
+
+    <string name="seasons">%s seasons</string>
+    <string name="season">%s season</string>
+    <string name="duration">%s minutes</string>
+    <string name="completed">completed</string>
+
+    <string name="genres">Genres</string>
+    <string name="not_found">Not Found, Please Try Again</string>
+    <string name="notfound">%s Not Found</string>
+    <string name="menu_fave">favorite</string>
+    <string name="sortname">Sort by name</string>
+    <string name="sortpopular">Sort by popularity</string>
+    <string name="sortyear">Sort by year released</string>
+    <string name="favorite_activity_title">Favourite List</string>
+    <string name="sortrating">Sort by rating</string>
+    <string name="sortrandom">Random list</string>
+</resources>

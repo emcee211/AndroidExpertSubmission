@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.example.submissionandroidexpert.core.domain.model.Movie
 import com.example.submissionandroidexpert.core.domain.usecase.MovieListUseCase
 import com.example.submissionandroidexpert.core.utils.SortBy
-import com.example.submissionandroidexpert.vo.Resource
+import com.example.submissionandroidexpert.core.vo.Resource
 
 class MovieViewModel(private val useCase: MovieListUseCase) : ViewModel() {
     fun getPopularMovies(sortParam: String): LiveData<Resource<List<Movie>>> =
