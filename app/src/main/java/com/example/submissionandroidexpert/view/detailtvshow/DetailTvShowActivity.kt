@@ -7,22 +7,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.ActivityDetailTvshowBinding
-import com.example.submissionandroidexpert.domain.model.TvShow
-import com.example.submissionandroidexpert.utils.Constant
-import com.example.submissionandroidexpert.utils.MappingHelper
-import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
+import com.example.submissionandroidexpert.core.domain.model.TvShow
+import com.example.submissionandroidexpert.core.utils.Constant
+import com.example.submissionandroidexpert.core.utils.MappingHelper
+import org.koin.android.viewmodel.ext.android.viewModel
 import com.example.submissionandroidexpert.vo.Status
 
 class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailTvshowBinding
     private lateinit var tvs: TvShow
 
-    private lateinit var viewModel: DetailTvShowViewModel
+    private val detailViewMovel: DetailTvShowViewModel by viewModel()
 
     private var menu: Menu? = null
 
@@ -38,20 +37,14 @@ class DetailTvShowActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(
-            this,
-            factory
-        )[DetailTvShowViewModel::class.java]
-
         //set data
         val tvid = intent.getIntExtra(EXTRA_TVSHOW, -1)
         if (tvid != -1) {
-            viewModel.setTvShow(tvid)
+            detailViewMovel.setTvShow(tvid)
         }
 
         //viewmodel
-        viewModel.tvShow.observe(this, { tvs ->
+        detailViewMovel.tvShow.observe(this, { tvs ->
             if (tvs != null) {
                 when (tvs.status) {
                     Status.LOADING -> loadingUI()
@@ -139,7 +132,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         if (item.itemId == R.id.action_favorite && this::tvs.isInitialized) {
             tvs.favorite = !tvs.favorite
             setBookmarkMenuState(tvs.favorite)
-            viewModel.setBookmark(tvs.favorite)
+            detailViewMovel.setBookmark(tvs.favorite)
             return true
         }
         return super.onOptionsItemSelected(item)

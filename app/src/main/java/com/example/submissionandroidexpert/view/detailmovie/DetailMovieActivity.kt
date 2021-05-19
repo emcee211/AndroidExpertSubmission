@@ -6,22 +6,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.ActivityDetailMovieBinding
-import com.example.submissionandroidexpert.domain.model.Movie
-import com.example.submissionandroidexpert.utils.Constant
-import com.example.submissionandroidexpert.utils.MappingHelper
-import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
+import com.example.submissionandroidexpert.core.domain.model.Movie
+import com.example.submissionandroidexpert.core.utils.Constant
+import com.example.submissionandroidexpert.core.utils.MappingHelper
 import com.example.submissionandroidexpert.vo.Status
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailMovieBinding
     private lateinit var movie: Movie
 
-    private lateinit var viewModel: DetailMovieViewModel
+    private val detailViewModel: DetailMovieViewModel by viewModel()
 
     private var menu: Menu? = null
 
@@ -37,20 +36,14 @@ class DetailMovieActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(
-            this,
-            factory
-        )[DetailMovieViewModel::class.java]
-
         //set data
         val movieId = intent.getIntExtra(EXTRA_MOVIE, -1)
         if (movieId != -1) {
-            viewModel.setMovie(movieId)
+            detailViewModel.setMovie(movieId)
         }
 
         //viewmodel
-        viewModel.movie.observe(this, { movie ->
+        detailViewModel.movie.observe(this, { movie ->
             if (movie != null) {
                 when (movie.status) {
                     Status.LOADING -> loadingUI()
@@ -135,7 +128,7 @@ class DetailMovieActivity : AppCompatActivity() {
         if (item.itemId == R.id.action_favorite && this::movie.isInitialized) {
             movie.favorite = !movie.favorite
             setBookmarkMenuState(movie.favorite)
-            viewModel.setBookmark(movie.favorite)
+            detailViewModel.setBookmark(movie.favorite)
             return true
         }
         return super.onOptionsItemSelected(item)

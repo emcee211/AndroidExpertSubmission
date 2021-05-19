@@ -6,16 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.FragmentMovieBinding
-import com.example.submissionandroidexpert.domain.model.Movie
-import com.example.submissionandroidexpert.utils.SortBy
-import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
+import com.example.submissionandroidexpert.core.domain.model.Movie
+import com.example.submissionandroidexpert.core.utils.SortBy
 import com.example.submissionandroidexpert.vo.Status
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
     private lateinit var binding: FragmentMovieBinding
@@ -26,6 +25,8 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
     private lateinit var movies: List<Movie>
 
     private var sortParam = SortBy.NONE
+
+    private val movieViewModel : MovieViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,13 +80,11 @@ class MovieFragment(private val sortBy: LiveData<String>) : Fragment() {
     }
 
     private fun getData() {
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-        viewModel.getPopularMovies(sortParam).observe(this, { movies ->
+        movieViewModel.getPopularMovies(sortParam).observe(this, { movies ->
             if (movies != null) {
                 when (movies.status) {
                     Status.LOADING -> hideRv()
-                    Status.SUCCESS -> if (movies.data != null && movies.data.size > 0) {
+                    Status.SUCCESS -> if (movies.data != null && movies.data.isNotEmpty()) {
                         this.movies = movies.data
                         showRV(this.movies)
                     } else {

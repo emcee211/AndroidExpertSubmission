@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.ItemMovieListBinding
-import com.example.submissionandroidexpert.domain.model.TvShow
-import com.example.submissionandroidexpert.utils.Constant
+import com.example.submissionandroidexpert.core.domain.model.TvShow
+import com.example.submissionandroidexpert.core.utils.Constant
 import com.example.submissionandroidexpert.view.detailtvshow.DetailTvShowActivity
 
 class ItemTvShowListAdapter : RecyclerView.Adapter<ItemTvShowListAdapter.ItemTvShowListViewHolder>() {

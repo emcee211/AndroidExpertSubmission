@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.FragmentTvShowFavBinding
-import com.example.submissionandroidexpert.domain.model.TvShow
+import com.example.submissionandroidexpert.core.domain.model.TvShow
 import com.example.submissionandroidexpert.view.tvshow.ItemTvShowListAdapter
-import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvShowFavFragment : Fragment() {
     private lateinit var binding: FragmentTvShowFavBinding
@@ -22,6 +21,8 @@ class TvShowFavFragment : Fragment() {
     private lateinit var tvlistListAdapter: ItemTvShowListAdapter
 
     private lateinit var tvshows: List<TvShow>
+
+    private val tvFavViewModel: TvShowFavViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,9 +70,7 @@ class TvShowFavFragment : Fragment() {
     }
 
     private fun getData() {
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        val viewModel = ViewModelProvider(this, factory)[TvShowFavViewModel::class.java]
-        viewModel.getFavoriteTvShow().observe(this, { tvshows ->
+        tvFavViewModel.getFavoriteTvShow().observe(this, { tvshows ->
             if (tvshows != null && tvshows.isNotEmpty()) {
                 this.tvshows = tvshows
                 showRV(this.tvshows)

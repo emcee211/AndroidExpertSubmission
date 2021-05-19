@@ -4,8 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.submissionandroidexpert.data.source.repository.MovieListRepository
-import com.example.submissionandroidexpert.domain.usecase.MovieListUseCase
+import com.example.submissionandroidexpert.core.domain.usecase.MovieListUseCase
 
 class DetailMovieViewModel(private val useCase: MovieListUseCase) : ViewModel() {
     private var movieId = MutableLiveData<Int>()

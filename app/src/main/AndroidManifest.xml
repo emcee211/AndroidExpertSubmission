@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SubmissionAndroidExpert">
+        android:theme="@style/Theme.SubmissionAndroidExpert"
+        android:name=".MyApplication">
         <activity android:name=".view.favorite.FavoriteActivity"></activity>
         <activity android:name=".view.detailmovie.DetailMovieActivity" />
         <activity android:name=".view.detailtvshow.DetailTvShowActivity" />

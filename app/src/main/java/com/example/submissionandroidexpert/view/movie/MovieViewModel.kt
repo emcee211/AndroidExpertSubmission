@@ -3,10 +3,9 @@ package com.example.submissionandroidexpert.view.movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.submissionandroidexpert.data.source.repository.MovieListRepository
-import com.example.submissionandroidexpert.domain.model.Movie
-import com.example.submissionandroidexpert.domain.usecase.MovieListUseCase
-import com.example.submissionandroidexpert.utils.SortBy
+import com.example.submissionandroidexpert.core.domain.model.Movie
+import com.example.submissionandroidexpert.core.domain.usecase.MovieListUseCase
+import com.example.submissionandroidexpert.core.utils.SortBy
 import com.example.submissionandroidexpert.vo.Resource
 
 class MovieViewModel(private val useCase: MovieListUseCase) : ViewModel() {

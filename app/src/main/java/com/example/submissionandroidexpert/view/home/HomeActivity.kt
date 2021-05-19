@@ -7,7 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.ActivityHomeBinding
-import com.example.submissionandroidexpert.utils.SortBy
+import com.example.submissionandroidexpert.core.utils.SortBy
 import com.example.submissionandroidexpert.view.favorite.FavoriteActivity
 
 class HomeActivity : AppCompatActivity() {

@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.submissionandroidexpert.R
 import com.example.submissionandroidexpert.databinding.FragmentMovieFavBinding
-import com.example.submissionandroidexpert.domain.model.Movie
+import com.example.submissionandroidexpert.core.domain.model.Movie
 import com.example.submissionandroidexpert.view.movie.ItemMovieListAdapter
-import com.example.submissionandroidexpert.viewmodel.ViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieFavFragment : Fragment() {
     private lateinit var binding: FragmentMovieFavBinding
@@ -22,6 +21,8 @@ class MovieFavFragment : Fragment() {
     private lateinit var movieListAdapter: ItemMovieListAdapter
 
     private lateinit var movies: List<Movie>
+
+    private val movieFavViewModel: MovieFavViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,9 +70,7 @@ class MovieFavFragment : Fragment() {
     }
 
     private fun getData() {
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        val viewModel = ViewModelProvider(this, factory)[MovieFavViewModel::class.java]
-        viewModel.getFavoriteMovies().observe(this, { movies ->
+        movieFavViewModel.getFavoriteMovies().observe(this, { movies ->
             if (movies != null && movies.isNotEmpty()) {
                 this.movies = movies
                 showRV(this.movies)
