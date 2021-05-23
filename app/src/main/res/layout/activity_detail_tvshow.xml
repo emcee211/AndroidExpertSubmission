@@ -47,6 +47,7 @@
                 android:layout_width="270dp"
                 android:layout_height="350dp"
                 android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/img_content_desc_movie_poster"
                 android:layout_marginTop="8dp" />
 
             <TextView
@@ -92,6 +93,7 @@
                     android:layout_height="4dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginHorizontal="8dp"
+                    android:contentDescription="@string/img_cd_dot"
                     android:src="@drawable/ic_baseline_circle_24" />
 
                 <TextView

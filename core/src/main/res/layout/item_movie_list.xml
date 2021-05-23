@@ -25,6 +25,7 @@
             android:scaleType="centerCrop"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="@id/cl"
+            android:contentDescription="img"
             card_view:layout_constraintTop_toTopOf="@id/cl" />
     </androidx.cardview.widget.CardView>
 

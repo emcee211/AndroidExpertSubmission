@@ -93,6 +93,6 @@ class RemoteDataSource constructor(private val api: MovieListAPI) {
     }
 
     companion object {
-        private val TAG = "=========== REMOTE DATA SOURCE"
+        private const val TAG = "=========== REMOTE DATA SOURCE"
     }
 }

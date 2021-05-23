@@ -33,5 +33,7 @@
     <string name="sortrating">Sort by rating</string>
     <string name="sortrandom">Random list</string>
     <string name="title_favorite">Favorite</string>
+    <string name="img_content_desc_movie_poster">Movie Poster</string>
+    <string name="img_cd_dot">dot</string>
 
 </resources>
