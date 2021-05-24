@@ -1,6 +1,5 @@
 package com.example.submissionandroidexpert.core.data.source.repository
 
-import android.util.Log
 import com.example.submissionandroidexpert.core.data.NetworkBoundResource
 import com.example.submissionandroidexpert.core.data.source.local.LocalDataSource
 import com.example.submissionandroidexpert.core.data.source.remote.ApiResponse
@@ -23,7 +22,6 @@ class MovieListRepository(
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IMovieListRepository {
-    val TAG = "DEBUGMOVIEREPOSITORY"
     override fun getPopularMovies(): Flow<Resource<List<Movie>>> {
         return object :
             NetworkBoundResource<List<Movie>, ArrayList<MovieResponse>>() {
@@ -189,7 +187,6 @@ class MovieListRepository(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
-                Log.d(TAG, "createCall: ")
                 return remoteDataSource.getPopularTvShows()
             }
 
@@ -213,7 +210,6 @@ class MovieListRepository(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
-                Log.d(TAG, "createCall: ")
                 return remoteDataSource.getPopularTvShows()
             }
 
@@ -237,7 +233,6 @@ class MovieListRepository(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<ArrayList<TvShowResponse>>> {
-                Log.d(TAG, "createCall: ")
                 return remoteDataSource.getPopularTvShows()
             }
 

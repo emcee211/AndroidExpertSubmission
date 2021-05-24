@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="@string/notfound"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
 </FrameLayout>

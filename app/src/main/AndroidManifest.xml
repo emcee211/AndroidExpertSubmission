@@ -12,11 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SubmissionAndroidExpert"
         android:name=".MyApplication">
-        <activity android:name=".favorite.favorite.FavoriteActivity"></activity>
         <activity android:name=".view.detailmovie.DetailMovieActivity" />
         <activity android:name=".view.detailtvshow.DetailTvShowActivity" />
         <activity
-            android:name=".view.SplashSreenActivity"
+            android:name=".view.SplashScreenActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
