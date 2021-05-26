@@ -9,6 +9,8 @@ import com.example.submissionandroidexpert.core.data.source.repository.MovieList
 import com.example.submissionandroidexpert.core.domain.repository.IMovieListRepository
 import com.example.submissionandroidexpert.core.utils.AppExecutors
 import com.example.submissionandroidexpert.core.utils.Constant
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -20,11 +22,14 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<MovieListDatabase>().movieListDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("MovieList".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
-            MovieListDatabase::class.java,
-            "MovieList.db"
-        ).fallbackToDestructiveMigration().build()
+            MovieListDatabase::class.java, "MovieList.db"
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 

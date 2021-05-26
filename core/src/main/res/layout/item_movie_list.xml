@@ -22,10 +22,10 @@
             android:id="@+id/img_item_photo"
             android:layout_width="160dp"
             android:layout_height="220dp"
+            android:contentDescription="@string/img_content_desc_movie_poster"
             android:scaleType="centerCrop"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="@id/cl"
-            android:contentDescription="@string/img_content_desc_movie_poster"
             card_view:layout_constraintTop_toTopOf="@id/cl" />
     </androidx.cardview.widget.CardView>
 
@@ -38,6 +38,9 @@
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/card"
         android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         card_view:layout_constraintEnd_toEndOf="@+id/cl"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/card" />
